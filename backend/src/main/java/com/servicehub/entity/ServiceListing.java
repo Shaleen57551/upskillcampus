@@ -31,11 +31,19 @@ public class ServiceListing {
     @JoinColumn(name = "category_id", nullable = false)
     private Category category;
 
-    public ServiceListing(String title, String description, BigDecimal price, User merchant, Category category) {
+    private String duration;
+    private String imageUrl;
+    
+    private Double averageRating = 0.0;
+    private Integer reviewCount = 0;
+
+    public ServiceListing(String title, String description, BigDecimal price, User merchant, Category category, String duration, String imageUrl) {
         this.title = title;
         this.description = description;
         this.price = price;
         this.merchant = merchant;
         this.category = category;
+        this.duration = duration;
+        this.imageUrl = imageUrl;
     }
 }

@@ -14,4 +14,7 @@ public class ServiceRequest {
     private BigDecimal price;
     @NotNull
     private Long categoryId;
+    
+    private String duration;
+    private String imageUrl;
 }

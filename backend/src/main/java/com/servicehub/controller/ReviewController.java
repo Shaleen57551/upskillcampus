@@ -23,6 +23,8 @@ public class ReviewController {
     ReviewRepository reviewRepository;
     @Autowired
     BookingRepository bookingRepository;
+    @Autowired
+    com.servicehub.repository.ServiceListingRepository serviceRepository;
 
     @PostMapping("/{bookingId}")
     @PreAuthorize("hasRole('CUSTOMER')")
@@ -43,6 +45,19 @@ public class ReviewController {
         
         Review review = new Review(booking, rating, comment);
         reviewRepository.save(review);
+        
+        // Update Average Rating
+        ServiceListing service = booking.getService();
+        Double currentAvg = service.getAverageRating() == null ? 0.0 : service.getAverageRating();
+        Integer currentCount = service.getReviewCount() == null ? 0 : service.getReviewCount();
+        
+        Integer newCount = currentCount + 1;
+        Double newAvg = ((currentAvg * currentCount) + rating) / newCount;
+        
+        service.setReviewCount(newCount);
+        service.setAverageRating(newAvg);
+        serviceRepository.save(service);
+        
         return ResponseEntity.ok(review);
     }
     

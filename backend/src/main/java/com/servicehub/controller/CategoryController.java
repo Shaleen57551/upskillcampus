@@ -27,4 +27,28 @@ public class CategoryController {
         Category saved = categoryRepository.save(new Category(category.getName(), category.getDescription()));
         return ResponseEntity.ok(saved);
     }
+
+    @PutMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> updateCategory(@PathVariable Long id, @RequestBody Category categoryDetails) {
+        return categoryRepository.findById(id).map(category -> {
+            category.setName(categoryDetails.getName());
+            category.setDescription(categoryDetails.getDescription());
+            categoryRepository.save(category);
+            return ResponseEntity.ok(category);
+        }).orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/{id}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<?> deleteCategory(@PathVariable Long id) {
+        try {
+            return categoryRepository.findById(id).map(category -> {
+                categoryRepository.delete(category);
+                return ResponseEntity.ok().build();
+            }).orElse(ResponseEntity.notFound().build());
+        } catch (org.springframework.dao.DataIntegrityViolationException e) {
+            return ResponseEntity.badRequest().body("Cannot delete category. It is currently assigned to active services.");
+        }
+    }
 }

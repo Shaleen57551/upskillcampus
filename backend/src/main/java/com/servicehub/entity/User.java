@@ -26,6 +26,10 @@ public class User {
     @Column(length = 20)
     private Role role;
 
+    private String businessName;
+    private String contactPhone;
+    private String logoUrl;
+
     public User(String username, String email, String password, Role role) {
         this.username = username;
         this.email = email;

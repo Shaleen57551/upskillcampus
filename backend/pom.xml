@@ -75,6 +75,12 @@
             <artifactId>spring-security-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <!-- Cloud SQL Connector -->
+        <dependency>
+            <groupId>com.google.cloud.sql</groupId>
+            <artifactId>mysql-socket-factory-connector-j-8</artifactId>
+            <version>1.16.0</version>
+        </dependency>
     </dependencies>
     <build>
         <plugins>
