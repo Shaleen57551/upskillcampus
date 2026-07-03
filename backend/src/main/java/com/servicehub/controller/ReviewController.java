@@ -2,6 +2,7 @@ package com.servicehub.controller;
 
 import com.servicehub.entity.Booking;
 import com.servicehub.entity.Review;
+import com.servicehub.entity.ServiceListing;
 import com.servicehub.repository.BookingRepository;
 import com.servicehub.repository.ReviewRepository;
 import com.servicehub.security.UserDetailsImpl;
